@@ -20,6 +20,7 @@ def is_move_valid(curr, neighbor):
   if (curr, neighbor) in walls or (neighbor, curr) in walls:
     return False
   return True
+  
 def a_star(start, goal, heuristic_func):
   open_list = []
   heapq.heappush(open_list, (0 + heuristic_func(start, goal), 0, start))
@@ -40,12 +41,12 @@ def a_star(start, goal, heuristic_func):
     visited.add(current_node)
     for dx, dy in directions:
       next_node = (current_node[0] + dx, current_node[1] + dy)
-      if not (1 &lt;= next_node[0] &lt;= rows and 1 &lt;= next_node[1] &lt;= cols):
+      if not (1 <= next_node[0] <= rows and 1 <= next_node[1] <= cols):
         continue
       if not is_move_valid(current_node, next_node):
         continue
       next_cost = current_cost + 1
-      if next_node not in g_cost or next_cost &lt; g_cost[next_node]:
+      if next_node not in g_cost or next_cost < g_cost[next_node]:
         g_cost[next_node] = next_cost
         f_cost = next_cost + heuristic_func(next_node, goal)
         heapq.heappush(open_list, (f_cost, next_cost, next_node))
@@ -53,23 +54,23 @@ def a_star(start, goal, heuristic_func):
   return -1, []
 
 def convert_to_letter(col):
-  return chr(ord(&#39;A&#39;) + col - 1)
+  return chr(ord('A') + col - 1)
 
-r = int(input(&quot;Enter starting row no:&quot;))
-c = int(input(&quot;Enter starting column no:&quot;))
+r = int(input("Enter starting row no:"))
+c = int(input("Enter starting column no:"))
 start = (r, c)
 manhattan_cost, manhattan_path = a_star(start, goal, manhattan_heuristic)
 chebyshev_cost, chebyshev_path = a_star(start, goal, chebyshev_heuristic)
 
 if manhattan_cost != -1:
-  print(f&quot;Manhattan Path Cost from {start} to goal {goal}: {manhattan_cost}&quot;)
-  print(&quot;Manhattan Path Taken:&quot;, &quot; -&gt; &quot;.join([f&quot;({x}, {convert_to_letter(y)})&quot; for x, y in
+  print(f"Manhattan Path Cost from {start} to goal {goal}: {manhattan_cost}")
+  print("Manhattan Path Taken:", "->".join([f"({x}, {convert_to_letter(y)})" for x, y in
   manhattan_path]))
 else:
-  print(&quot;No path found using Manhattan distance!&quot;)
+  print("No path found using Manhattan distance!")
 if chebyshev_cost != -1:
-  print(f&quot;Chebyshev Path Cost from {start} to goal {goal}: {chebyshev_cost}&quot;)
-  print(&quot;Chebyshev Path Taken:&quot;, &quot; -&gt; &quot;.join([f&quot;({x}, {convert_to_letter(y)})&quot; for x, y in
+  print(f"Chebyshev Path Cost from {start} to goal {goal}: {chebyshev_cost}")
+  print("Chebyshev Path Taken:", "->".join([f&quot;({x}, {convert_to_letter(y)})" for x, y in
   chebyshev_path]))
 else:
-  print(&quot;No path found using Chebyshev distance!&quot;)
+  print("No path found using Chebyshev distance!")
