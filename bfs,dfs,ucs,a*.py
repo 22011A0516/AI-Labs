@@ -20,7 +20,8 @@ heuristic_values = {
 'E': float('inf'),
 'F': 0
 }
-def heuristic(node, goal=&#39;F&#39;):
+
+def heuristic(node, goal='F'):
   return heuristic_values.get(node, 0)
 
 def bfs(start, goal):
@@ -74,7 +75,7 @@ def ucs(start, goal):
       nodes_generated += 1
     for neighbor, edge_cost in graph.get(node, []):
       new_cost = cost + edge_cost
-      if neighbor not in costs or new_cost &lt; costs[neighbor]:
+      if neighbor not in costs or new_cost<costs[neighbor]:
         costs[neighbor] = new_cost
         parent[neighbor] = node
         heapq.heappush(queue, (new_cost, neighbor))
