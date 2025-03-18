@@ -16,7 +16,7 @@ def total_distance(tour):
 def two_opt(tour):
   neighbors = []
   for i, j in itertools.combinations(range(len(tour)), 2):
-    if i &lt; j:
+    if i < j:
       new_tour = tour[:i] + list(reversed(tour[i:j+1])) + tour[j+1:]
       neighbors.append(new_tour)
   return neighbors
@@ -30,7 +30,7 @@ def hill_climbing(tour):
     best_distance = current_distance
     for neighbor in neighbors:
       dist = total_distance(neighbor)
-      if dist &lt; best_distance:
+      if dist < best_distance:
         best_distance = dist
         best_neighbor = neighbor
     if best_neighbor is None:
@@ -45,7 +45,7 @@ random_start_states = [random.sample(cities, len(cities)) for _ in range(3)]
 
 for i, start_state in enumerate(random_start_states):
   best_tour, best_distance = hill_climbing(start_state)
-  print(f&quot;Random start {i+1}: {start_state}&quot;)
-  print(f&quot;Best tour: {best_tour}&quot;)
-  print(f&quot;Best distance: {best_distance}&quot;)
-  print(&quot;-&quot; * 40)
+  print(f"Random start {i+1}: {start_state}")
+  print(f"Best tour: {best_tour}")
+  print(f"Best distance: {best_distance}")
+  print("-"*40)
