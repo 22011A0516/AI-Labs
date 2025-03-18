@@ -27,13 +27,13 @@ while hp:
   if current_node in visited_nodes:
     continue
   visited_nodes.add(current_node)
-  print(f&quot;Visiting: {current_node} (Cost: {current_cost})&quot;)
+  print(f"Visiting: {current_node} (Cost: {current_cost})")
   if current_node == end_node:
     print(f"Reached {end_node} with cost {current_cost}")
     break
   for neighbor, weight in graph.get(current_node, []):
     new_cost = current_cost + weight
-    if neighbor not in visited_nodes or new_cost &lt; node_costs.get(neighbor,infinity):
+    if neighbor not in visited_nodes or new_cost<node_costs.get(neighbor,infinity):
       heapq.heappush(hp, (new_cost, neighbor))
       node_costs[neighbor] = new_cost
       print(f"Queueing {neighbor} (Cost: {new_cost})")
